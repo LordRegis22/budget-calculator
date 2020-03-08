@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import theme from "../theme.js";
 import { FaDollarSign } from "react-icons/fa";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const useStyles = makeStyles({
   root: {
@@ -18,25 +19,45 @@ const useStyles = makeStyles({
   button: { display: "block", margin: theme.spacing(1) }
 });
 
-export const ExpenseForm = () => {
+export const ExpenseForm = ({
+  handleCharge,
+  handleAmount,
+  handleSubmit,
+  amount,
+  charge
+}) => {
   const classes = useStyles();
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
       <TextField
         id="cost"
         name="cost"
         label="Cost"
         variant="outlined"
+        type="number"
         className={classes.cost}
+        value={amount}
+        onChange={handleAmount}
+        InputProps={{
+          startAdornment: <InputAdornment position="start">$</InputAdornment>
+        }}
       />
       <TextField
         id="expense"
         name="expense"
         label="Expense"
         variant="outlined"
+        value={charge}
+        onChange={handleCharge}
         className={classes.expense}
       />
       <Button
+        type="submit"
         variant="contained"
         color="secondary"
         fullWidth={true}

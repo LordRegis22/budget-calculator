@@ -17,18 +17,47 @@ const initialExpenses = [
 function App() {
   const useStyles = makeStyles({ root: { textAlign: "center" } });
   const classes = useStyles();
+
   const [expenses, setExpenses] = useState(initialExpenses);
+  const [charge, setCharge] = useState("");
+  const [amount, setAmount] = useState("");
+
+  const handleCharge = event => {
+    console.log("change");
+    setCharge(event.target.value);
+  };
+  const handleAmount = event => {
+    setAmount(event.target.value);
+  };
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (charge && amount) {
+      setExpenses([
+        { id: uuid(), charge: charge, amount: amount },
+        ...expenses
+      ]);
+    }
+  };
 
   const handleClick = () => {
     setExpenses([]);
+    setCharge("");
+    setAmount("");
   };
+
   return (
     <div className={classes.root}>
       <Card>
         <Alert />
         <h1>Budget Calculator</h1>
         <main className="App">
-          <ExpenseForm />
+          <ExpenseForm
+            charge={charge}
+            amount={amount}
+            handleCharge={handleCharge}
+            handleAmount={handleAmount}
+            handleSubmit={handleSubmit}
+          />
           <ExpenseList expenses={expenses} handleClick={handleClick} />
         </main>
         <h1>
