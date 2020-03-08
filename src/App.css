@@ -7,12 +7,23 @@
   --mainRed: #d500aa;
   --mainGreen: #e17706;
 }
+
+.container {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
 .paw {
-  color: var(--primaryColor);
-  width: 100%;
-  font-size: 15rem;
-  position: absolute;
-  bottom: 1rem;
+  color: var(--mainRed);
+  font-size: 10rem;
+  justify-self: stretch;
+  transition: all 5s linear;
+}
+
+.paw:hover {
+  color: var(--mainGrey);
 }
 
 * {
@@ -24,6 +35,8 @@ body {
   color: var(--mainBlack);
   font-family: "Roboto", sans-serif;
 }
+
+/*
 h1 {
   text-align: center;
   text-transform: capitalize;
@@ -192,4 +205,4 @@ label {
   .info {
     flex: 0 0 50%;
   }
-}
+} */

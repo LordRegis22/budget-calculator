@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-//import "./App.css";
-import { FaPaw } from "react-icons/fa";
+import "./App.css";
+import { GiGreekSphinx } from "react-icons/gi";
 import Alert from "./components/Alert";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
@@ -18,6 +18,10 @@ function App() {
   const useStyles = makeStyles({ root: { textAlign: "center" } });
   const classes = useStyles();
   const [expenses, setExpenses] = useState(initialExpenses);
+
+  const handleClick = () => {
+    setExpenses([]);
+  };
   return (
     <div className={classes.root}>
       <Card>
@@ -25,7 +29,7 @@ function App() {
         <h1>Budget Calculator</h1>
         <main className="App">
           <ExpenseForm />
-          <ExpenseList expenses={expenses} />
+          <ExpenseList expenses={expenses} handleClick={handleClick} />
         </main>
         <h1>
           Total Spending:{" "}
@@ -37,7 +41,9 @@ function App() {
           </span>
         </h1>
       </Card>
-      <FaPaw className="paw" />
+      <div className="container">
+        <GiGreekSphinx className="paw" />
+      </div>
     </div>
   );
 }
