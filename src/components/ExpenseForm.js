@@ -8,10 +8,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: "auto",
     display: "flex",
     flexWrap: "wrap",
-    padding: theme.spacing(1),
     margin: theme.spacing(1)
   },
   cost: { margin: theme.spacing(1), width: "100%" },
@@ -24,7 +23,8 @@ export const ExpenseForm = ({
   handleAmount,
   handleSubmit,
   amount,
-  charge
+  charge,
+  edit
 }) => {
   const classes = useStyles();
   return (
@@ -64,7 +64,7 @@ export const ExpenseForm = ({
         className={classes.button}
       >
         <FaDollarSign style={{ marginRight: "10px" }} />
-        Add Expense
+        {edit ? "Edit Expense" : "Add Expense"}
       </Button>
     </form>
   );

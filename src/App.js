@@ -21,12 +21,14 @@ function App() {
   const [charge, setCharge] = useState("");
   const [amount, setAmount] = useState("");
   const [alert, setAlert] = useState({ show: false });
+  const [edit, setEdit] = useState(false);
+  const [id, setId] = useState(0);
 
   const handleAlert = ({ type, text }) => {
     setAlert({ show: true, type, text });
-    setTimeout(() => {
-      setAlert({ show: false });
-    }, 3000);
+    // setTimeout(() => {
+    //   setAlert({ show: false });
+    // }, 2000);
   };
   const handleCharge = event => {
     setCharge(event.target.value);
@@ -37,8 +39,17 @@ function App() {
   const handleSubmit = event => {
     event.preventDefault();
     if (charge && amount) {
-      setExpenses([{ id: uuid(), charge, amount }, ...expenses]);
-      handleAlert({ type: "success", text: "Expense successfully submitted" });
+      if (edit) {
+        let tempExpenses = expenses.map(item =>
+          id === item.id ? { ...item, charge, amount } : item
+        );
+        setExpenses(tempExpenses);
+        handleAlert({ type: "success", text: "Item successfully edited." });
+        setEdit(false);
+      } else {
+        setExpenses([{ id: uuid(), charge, amount }, ...expenses]);
+        handleAlert({ type: "success", text: "Expense successfully added" });
+      }
       setCharge("");
       setAmount("");
     } else {
@@ -71,6 +82,17 @@ function App() {
   const handleDelete = id => {
     let tempExpenses = expenses.filter(item => item.id !== id);
     setExpenses(tempExpenses);
+    handleAlert({ type: "error", text: "Item deleted." });
+  };
+
+  const handleEdit = id => {
+    setEdit(true);
+    let expense = expenses.find(item => item.id === id);
+    let { charge, amount } = expense;
+    setCharge(charge);
+    setAmount(amount);
+    setId(id);
+    console.log(expense);
   };
 
   const useStyles = makeStyles({
@@ -99,6 +121,7 @@ function App() {
             handleAmount={handleAmount}
             handleSubmit={handleSubmit}
             handleAlert={handleAlert}
+            edit={edit}
           />
           <ExpenseList
             expenses={expenses}
@@ -106,6 +129,7 @@ function App() {
             handleAmountClick={handleAmountClick}
             handleChargeClick={handleChargeClick}
             handleDelete={handleDelete}
+            handleEdit={handleEdit}
           />
         </main>
         <Typography variant="h2" className={classes.title}>

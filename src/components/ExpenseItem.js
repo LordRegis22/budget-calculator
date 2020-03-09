@@ -8,7 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const ExpenseItem = ({
   expense: { id, charge, amount },
-  handleDelete
+  handleDelete,
+  handleEdit
 }) => {
   const useStyles = makeStyles(theme => ({
     root: {
@@ -55,7 +56,12 @@ export const ExpenseItem = ({
         {charge}
       </Typography>
       <div className={classes.buttonGroup}>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={() => handleEdit(id)}
+        >
           <FaRegEdit />
         </Button>
         <Button

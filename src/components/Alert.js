@@ -1,18 +1,19 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import theme from "../theme.js";
-import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Collapse from "@material-ui/core/Collapse";
 import Typography from "@material-ui/core/Typography";
+import { FaExclamation, FaThumbsUp } from "react-icons/fa";
 
 export const Alert = ({ show, type, text }) => {
   const useStyles = makeStyles({
     root: {
       textAlign: "center",
-      margin: theme.spacing(1),
       position: "absolute",
-      width: "100%"
+      width: "100%",
+      boxSizing: "border-box"
     },
     success: {
       backgroundColor: "rgb(221,207,246)",
@@ -34,21 +35,21 @@ export const Alert = ({ show, type, text }) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
+    <Container className={classes.root}>
       <Collapse in={show}>
         <Paper>
           {type === "success" ? (
             <Typography variant="h6" className={classes.success}>
-              {text}
+              <FaThumbsUp /> {text}
             </Typography>
           ) : (
             <Typography variant="h6" className={classes.error}>
-              {text}
+              <FaExclamation /> {text}
             </Typography>
           )}
         </Paper>
       </Collapse>
-    </Box>
+    </Container>
   );
 };
 

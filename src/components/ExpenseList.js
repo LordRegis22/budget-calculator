@@ -10,6 +10,11 @@ const useStyles = makeStyles({
     padding: "0",
     margin: theme.spacing(1)
   },
+  // buttonGroup: {
+  //   display: "flex",
+  //   flex: "1 1"
+  // },
+
   button: {
     margin: theme.spacing(1)
   }
@@ -20,7 +25,8 @@ export const ExpenseList = ({
   handleClick,
   handleAmountClick,
   handleChargeClick,
-  handleDelete
+  handleDelete,
+  handleEdit
 }) => {
   const classes = useStyles();
   return (
@@ -31,11 +37,12 @@ export const ExpenseList = ({
             key={item.id}
             expense={item}
             handleDelete={handleDelete}
+            handleEdit={handleEdit}
           />
         ))}
       </ul>
       {expenses.length > 0 && (
-        <>
+        <div className={classes.buttonGroup}>
           <Button
             variant="contained"
             color="primary"
@@ -52,7 +59,7 @@ export const ExpenseList = ({
             onClick={() => handleAmountClick()}
           >
             <FaSortNumericDown style={{ marginRight: "10px" }} />
-            Sort by $
+            Sort by Cost
           </Button>
           <Button
             variant="contained"
@@ -63,7 +70,7 @@ export const ExpenseList = ({
             <FaSortAlphaDown style={{ marginRight: "10px" }} />
             Sort A-Z
           </Button>
-        </>
+        </div>
       )}
     </>
   );
