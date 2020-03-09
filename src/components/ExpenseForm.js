@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     padding: theme.spacing(1),
     margin: theme.spacing(1)
   },
-  cost: { margin: theme.spacing(1), width: "auto" },
+  cost: { margin: theme.spacing(1), width: "100%" },
   expense: { margin: theme.spacing(1), flexGrow: "1" },
   button: { display: "block", margin: theme.spacing(1) }
 });
@@ -30,7 +30,7 @@ export const ExpenseForm = ({
   return (
     <form
       className={classes.root}
-      noValidate
+      validate="true"
       autoComplete="off"
       onSubmit={handleSubmit}
     >

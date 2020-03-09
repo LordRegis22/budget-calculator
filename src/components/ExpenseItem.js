@@ -1,17 +1,23 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { makeStyles } from "@material-ui/core/styles";
 
-export const ExpenseItem = ({ expense: { id, charge, amount } }) => {
+export const ExpenseItem = ({
+  expense: { id, charge, amount, handleDelete }
+}) => {
   const useStyles = makeStyles(theme => ({
     root: {
       textAlign: "center",
       display: "grid",
-      gridTemplateColumns: "1fr 4fr 2fr",
-      gridTemplateRows: "100px"
+      gridTemplateColumns: "1fr 3fr 2fr",
+      gridTemplateRows: "auto",
+      height: "auto",
+      margin: theme.spacing(1),
+      padding: theme.spacing(1)
     },
     button: {
       fontSize: "1rem",
@@ -24,7 +30,8 @@ export const ExpenseItem = ({ expense: { id, charge, amount } }) => {
     amount: {
       marginRight: ".5rem",
       color: "var(--mainRed)",
-      alignSelf: "center"
+      alignSelf: "center",
+      justifySelf: "flex-start"
     },
     charge: {
       color: "var(--mainGrey)",
@@ -35,12 +42,11 @@ export const ExpenseItem = ({ expense: { id, charge, amount } }) => {
       display: "flex",
       justifyContent: "flex-end",
       alignItems: "center"
-      //"& nthChild(2)": { marginRight: "150px" }
     }
   }));
   const classes = useStyles();
   return (
-    <div className={classes.root} id={id}>
+    <Paper className={classes.root} id={id}>
       <Typography variant="h4" className={classes.amount}>
         ${amount}
       </Typography>
@@ -55,11 +61,12 @@ export const ExpenseItem = ({ expense: { id, charge, amount } }) => {
           variant="contained"
           color="secondary"
           className={classes.endButton}
+          onClick={handleDelete}
         >
           <FaRegTrashAlt />
         </Button>
       </div>
-    </div>
+    </Paper>
   );
 };
 
