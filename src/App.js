@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { GiGreekSphinx } from "react-icons/gi";
 import Alert from "./components/Alert";
@@ -10,11 +10,15 @@ import { Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import theme from "./theme.js";
 
-const initialExpenses = [
-  { id: uuid(), charge: "Rent", amount: 800 },
-  { id: uuid(), charge: "Car", amount: 500 },
-  { id: uuid(), charge: "Amex", amount: 1000 }
-];
+// const initialExpenses = [
+//   { id: uuid(), charge: "Rent", amount: 800 },
+//   { id: uuid(), charge: "Car", amount: 500 },
+//   { id: uuid(), charge: "Amex", amount: 1000 }
+// ];
+
+const initialExpenses = localStorage.getItem("expenses")
+  ? JSON.parse(localStorage.getItem("expenses"))
+  : [];
 
 function App() {
   const [expenses, setExpenses] = useState(initialExpenses);
@@ -24,11 +28,15 @@ function App() {
   const [edit, setEdit] = useState(false);
   const [id, setId] = useState(0);
 
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
+
   const handleAlert = ({ type, text }) => {
     setAlert({ show: true, type, text });
-    // setTimeout(() => {
-    //   setAlert({ show: false });
-    // }, 2000);
+    setTimeout(() => {
+      setAlert({ show: false });
+    }, 2000);
   };
   const handleCharge = event => {
     setCharge(event.target.value);
