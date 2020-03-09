@@ -5,8 +5,10 @@ import Alert from "./components/Alert";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import { v4 as uuid } from "uuid";
+import Typography from "@material-ui/core/Typography";
 import { Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import theme from "./theme.js";
 
 const initialExpenses = [
   { id: uuid(), charge: "Rent", amount: 800 },
@@ -15,15 +17,18 @@ const initialExpenses = [
 ];
 
 function App() {
-  const useStyles = makeStyles({ root: { textAlign: "center" } });
-  const classes = useStyles();
-
   const [expenses, setExpenses] = useState(initialExpenses);
   const [charge, setCharge] = useState("");
   const [amount, setAmount] = useState("");
+  const [alert, setAlert] = useState({ show: false });
 
+  const handleAlert = ({ type, text }) => {
+    setAlert({ show: true, type, text });
+    setTimeout(() => {
+      setAlert({ show: false });
+    }, 3000);
+  };
   const handleCharge = event => {
-    console.log("change");
     setCharge(event.target.value);
   };
   const handleAmount = event => {
@@ -32,10 +37,12 @@ function App() {
   const handleSubmit = event => {
     event.preventDefault();
     if (charge && amount) {
-      setExpenses([
-        { id: uuid(), charge: charge, amount: amount },
-        ...expenses
-      ]);
+      setExpenses([{ id: uuid(), charge, amount }, ...expenses]);
+      handleAlert({ type: "success", text: "Expense successfully submitted" });
+      setCharge("");
+      setAmount("");
+    } else {
+      handleAlert({ type: "error", text: "Please enter a Cost and Expense" });
     }
   };
 
@@ -45,11 +52,44 @@ function App() {
     setAmount("");
   };
 
+  const handleAmountClick = () => {
+    let sortedArray = expenses.slice(0);
+    sortedArray.sort((a, b) => {
+      return a.amount - b.amount;
+    });
+    setExpenses(sortedArray);
+  };
+
+  const handleChargeClick = () => {
+    let sortedArray = expenses.slice(0);
+    sortedArray.sort((a, b) => {
+      return a.charge.toUpperCase() > b.charge.toUpperCase() ? 1 : -1;
+    });
+    setExpenses(sortedArray);
+  };
+
+  const handleDelete = () => {
+    console.log("delete");
+  };
+
+  const useStyles = makeStyles({
+    root: { textAlign: "center", margin: theme.spacing(1) },
+    title: { margin: theme.spacing(2) },
+    total: { color: "var(--mainRed)" },
+    background: { backgroundColor: "#fafafa", position: "relative" },
+    sphinx: {
+      //color: theme.palette.primary.main,
+      fontSize: "15rem",
+      margin: theme.spacing(5)
+    }
+  });
+  const classes = useStyles();
+
   return (
     <div className={classes.root}>
-      <Card>
-        <Alert />
-        <h1>Budget Calculator</h1>
+      <Card className={classes.background}>
+        <Alert type={alert.type} text={alert.text} show={alert.show} />
+        <Typography variant="h1">Budget Calculator</Typography>
         <main className="App">
           <ExpenseForm
             charge={charge}
@@ -57,22 +97,27 @@ function App() {
             handleCharge={handleCharge}
             handleAmount={handleAmount}
             handleSubmit={handleSubmit}
+            handleAlert={handleAlert}
           />
-          <ExpenseList expenses={expenses} handleClick={handleClick} />
+          <ExpenseList
+            expenses={expenses}
+            handleClick={handleClick}
+            handleAmountClick={handleAmountClick}
+            handleChargeClick={handleChargeClick}
+            handleDelete={handleDelete}
+          />
         </main>
-        <h1>
-          Total Spending:{" "}
-          <span className="total">
+        <Typography variant="h2" className={classes.title}>
+          {`Total Spending: `}
+          <span className={classes.total}>
             $
             {expenses.reduce((total, current) => {
-              return (total += current.amount);
+              return (total += parseInt(current.amount));
             }, 0)}
           </span>
-        </h1>
+        </Typography>
       </Card>
-      <div className="container">
-        <GiGreekSphinx className="paw" />
-      </div>
+      <GiGreekSphinx className={`sphinx ${classes.sphinx}`} />
     </div>
   );
 }
