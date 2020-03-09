@@ -19,14 +19,19 @@ export const ExpenseList = ({
   expenses,
   handleClick,
   handleAmountClick,
-  handleChargeClick
+  handleChargeClick,
+  handleDelete
 }) => {
   const classes = useStyles();
   return (
     <>
       <ul className={classes.root}>
         {expenses.map(item => (
-          <ExpenseItem key={item.id} expense={item} />
+          <ExpenseItem
+            key={item.id}
+            expense={item}
+            handleDelete={handleDelete}
+          />
         ))}
       </ul>
       {expenses.length > 0 && (

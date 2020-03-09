@@ -7,7 +7,8 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { makeStyles } from "@material-ui/core/styles";
 
 export const ExpenseItem = ({
-  expense: { id, charge, amount, handleDelete }
+  expense: { id, charge, amount },
+  handleDelete
 }) => {
   const useStyles = makeStyles(theme => ({
     root: {
@@ -61,7 +62,7 @@ export const ExpenseItem = ({
           variant="contained"
           color="secondary"
           className={classes.endButton}
-          onClick={handleDelete}
+          onClick={() => handleDelete(id)}
         >
           <FaRegTrashAlt />
         </Button>

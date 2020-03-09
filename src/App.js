@@ -68,8 +68,9 @@ function App() {
     setExpenses(sortedArray);
   };
 
-  const handleDelete = () => {
-    console.log("delete");
+  const handleDelete = id => {
+    let tempExpenses = expenses.filter(item => item.id !== id);
+    setExpenses(tempExpenses);
   };
 
   const useStyles = makeStyles({
