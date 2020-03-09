@@ -8,6 +8,58 @@
   --mainGreen: #e17706;
 }
 
+@-webkit-keyframes mermaid {
+  0%,
+  100% {
+    color: var(--mainRed);
+  }
+  25% {
+    color: var(--mainGrey);
+  }
+
+  50% {
+    color: var(--primaryColor);
+  }
+
+  75% {
+    color: var(--mainGreen);
+  }
+}
+@-moz-keyframes mermaid {
+  0%,
+  100% {
+    color: var(--mainRed);
+  }
+  25% {
+    color: var(--mainGrey);
+  }
+
+  50% {
+    color: var(--primaryColor);
+  }
+
+  75% {
+    color: var(--mainGreen);
+  }
+}
+@-o-keyframes mermaid {
+  0%,
+  100% {
+    color: var(--mainRed);
+  }
+  25% {
+    color: var(--mainGrey);
+  }
+
+  50% {
+    color: var(--primaryColor);
+  }
+
+  75% {
+    color: var(--mainGreen);
+  }
+}
+
 @keyframes mermaid {
   0%,
   100% {
@@ -50,6 +102,9 @@
   justify-self: stretch;
   transition: all 7s linear;
   animation: mermaid 10s infinite linear;
+  -webkit-animation: mermaid 10s infinite linear;
+  -moz-animation: mermaid 10s infinite linear;
+  -o-animation: mermaid 10s infinite linear;
 }
 
 * {

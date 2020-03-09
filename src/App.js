@@ -109,7 +109,6 @@ function App() {
     total: { color: "var(--mainRed)" },
     background: { backgroundColor: "#fafafa", position: "relative" },
     sphinx: {
-      //color: theme.palette.primary.main,
       fontSize: "15rem",
       margin: theme.spacing(5)
     }
