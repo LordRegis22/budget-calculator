@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 :root {
-  --primaryColor: #00ba9e;
+  --primaryColor: #00e5ff;
   --mainWhite: #fff;
   --mainBlack: #222;
   --mainGrey: #5800bd;
@@ -8,22 +8,48 @@
   --mainGreen: #e17706;
 }
 
-.container {
-  height: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+@keyframes mermaid {
+  0%,
+  100% {
+    color: var(--mainRed);
+  }
+  25% {
+    color: var(--mainGrey);
+  }
+
+  50% {
+    color: var(--primaryColor);
+  }
+
+  75% {
+    color: var(--mainGreen);
+  }
 }
-.paw {
+
+@keyframes water {
+  0%,
+  100% {
+    background-color: var(--mainGrey);
+  }
+  25% {
+    background-color: var(--primaryColor);
+  }
+
+  50% {
+    background-color: var(--mainRed);
+  }
+
+  75% {
+    background-color: var(--mainGreen);
+  }
+}
+
+.sphinx {
   color: var(--mainRed);
   font-size: 10rem;
   justify-self: stretch;
-  transition: all 5s linear;
-}
-
-.paw:hover {
-  color: var(--mainGrey);
+  transition: all 7s linear;
+  animation: mermaid 10s infinite linear;
 }
 
 * {
@@ -31,6 +57,7 @@
   box-sizing: border-box;
 }
 body {
+  animation: water 11s infinite linear;
   background: var(--mainGrey);
   color: var(--mainBlack);
   font-family: "Roboto", sans-serif;
